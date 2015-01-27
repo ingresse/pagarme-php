@@ -1,6 +1,6 @@
 <?php
 
-class RestClient 
+class RestClient
 {
 	private $http_client;
 	private $method;
@@ -9,7 +9,7 @@ class RestClient
 	private $parameters =  Array();
 	private $curl;
 
-	public function __construct($params = array()) 
+	public function __construct($params = array())
 	{
 			$this->curl = curl_init();
 			$this->headers = array(
@@ -18,7 +18,7 @@ class RestClient
 			);
 
 			if(!$params["url"]) {
-				throw new PagarMe_Exception("You must set the URL to make a request.");
+				throw new Exception("You must set the URL to make a request.");
 			} else {
 				$this->url = $params["url"];
 			}
@@ -41,7 +41,7 @@ class RestClient
 				case 'post':
 				case 'POST':
 					curl_setopt($this->curl, CURLOPT_POST, true);
-					curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->parameters);	
+					curl_setopt($this->curl, CURLOPT_POSTFIELDS, $this->parameters);
 					break;
 				case 'get':
 				case 'GET':
@@ -63,7 +63,7 @@ class RestClient
 				}
 			}
 
-			curl_setopt($this->curl, CURLOPT_URL, $this->url);	
+			curl_setopt($this->curl, CURLOPT_URL, $this->url);
 
 			if(isset($params["headers"])) {
 				$this->headers = array_merge($this->headers, $params["headers"]);
@@ -122,7 +122,7 @@ class RestClient
 	}
 
 
-	public function run() 
+	public function run()
 	{
 			$response = curl_exec($this->curl);
 
@@ -138,7 +138,7 @@ class RestClient
 
 			$error = curl_error($this->curl);
 			if($error) {
-				throw new PagarMe_Exception("error: ".$error);
+				throw new Exception("error: ".$error);
 			}
 			$code = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
 			curl_close($this->curl);

@@ -1,5 +1,5 @@
 <?php
-class PagarMe_Request extends PagarMe 
+class PagarMe_Request extends PagarMe
 {
 	private $path;
 	private $method;
@@ -7,22 +7,22 @@ class PagarMe_Request extends PagarMe
 	private $headers;
 	private $live;
 
-	public function __construct($path, $method, $live = PagarMe::live) 
+	public function __construct($path, $method, $live = PagarMe::live)
 	{
 		$this->method = $method;
 		$this->path = $path;
-		$this->live = $live;	
+		$this->live = $live;
 	}
-	public function run() 
+	public function run()
 	{
 		if(!parent::getApiKey()) {
-			throw new PagarMe_Exception("You need to configure API key before performing requests.");
+			throw new Exception("You need to configure API key before performing requests.");
 		}
 
 		$this->parameters = array_merge($this->parameters, array( "api_key" => parent::getApiKey()));
 		// var_dump($this->parameters);
 		// $this->headers = (PagarMe::live) ? array("X-Live" => 1) : array();
-		$client = new RestClient(array("method" => $this->method, "url" => $this->full_api_url($this->path), "headers" => $this->headers, "parameters" => $this->parameters ));	
+		$client = new RestClient(array("method" => $this->method, "url" => $this->full_api_url($this->path), "headers" => $this->headers, "parameters" => $this->parameters ));
 		$response = $client->run();
 		// var_dump($response);
 		$decode = json_decode($response["body"], true);
@@ -44,7 +44,7 @@ class PagarMe_Request extends PagarMe
 		$this->parameters = $parameters;
 	}
 
-	public function getParameters() 
+	public function getParameters()
 	{
 		return $this->parameters;
 	}
