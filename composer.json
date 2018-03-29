@@ -1,5 +1,5 @@
 {
-	"name": "pagarme/pagarme-php",
+	"name": "ingresse/pagarme-php",
 	"description": "Pagar.me PHP Library",
 	"keywords": [
 		"pagar.me",
@@ -26,7 +26,7 @@
 	"require-dev": {
 		 "simpletest/simpletest": "*"
 	},
-	"autoload": { 
+	"autoload": {
 		"classmap":["lib/Pagarme"]
 	}
 }
